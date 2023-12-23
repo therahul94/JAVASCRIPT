@@ -1,0 +1,20 @@
+// Using `1-counter.md` or `2-counter.md` from the easy section, can you create a
+// clock that shows you the current machine time?
+
+// Can you make it so that it updates every second, and shows time in the 
+// following formats - 
+
+//  - HH:MM::SS (Eg. 13:45:23)
+
+//  - HH:MM::SS AM/PM (Eg 01:45:23 PM)
+
+setInterval(()=>{
+    const d = new Date();
+    console.log(`${d.getHours()}:${d.getMinutes()}:${d.getSeconds()}`);
+    let hours = d.getHours()%12;
+        // if()
+    let setTimeSuffix = 'AM';
+    d.getHours()>=12?
+        setTimeSuffix = 'PM': setTimeSuffix = 'AM'
+    console.log(`${d.getHours()%12}:${d.getMinutes()}:${d.getSeconds()} ${setTimeSuffix} `);
+},1000);
