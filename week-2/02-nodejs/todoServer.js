@@ -38,7 +38,9 @@
     - For any other route not defined in the server return 404
 
   Testing the server - run `npm run test-todoServer` command in terminal
- */
+
+ # This is written by rahul: 
+  this is given by them I just made changes or write some code.
   const express = require('express');
   const bodyParser = require('body-parser');
   
@@ -47,3 +49,169 @@
   app.use(bodyParser.json());
   
   module.exports = app;
+ */
+const express = require("express");
+const bodyParser = require("body-parser");
+const fs = require("fs");
+const app = express();
+// const PORT = 3000;
+const zod = require("zod");
+const { title } = require("process");
+
+//how to write zod schema
+// const schema = zod.object({
+//   title: zod.string({
+//     required_error: "Title is required field!!!",
+//   }),
+//   completed: zod.boolean(),
+//   description: zod.string({
+//     required_error: "Description is required field!!!",
+//   }),
+// });
+
+app.use(bodyParser.json());
+
+app.get("/todos", (req, res) => {
+  try {
+    let todoList = [];
+    fs.readFile("todos.json", function (err, data) {
+      if (err) {
+        throw err;
+      }
+      todoList = JSON.parse(data);
+      // console.log('todoList', todoList);
+      if (todoList.length > 0) {
+        return res
+          .status(200)
+          .json(todoList);
+      }
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: error.response.data.error });
+  }
+});
+
+app.post("/todos", (req, res) => {
+  try {
+    let todoDetails = {
+      id: Math.floor(Math.random() * 1000000),
+      title: req.body.title,
+      description: req.body.description,
+      completed: req.body.completed,
+    };
+    // const response = schema.safeParse(todoDetails);
+
+    let todolist = [];
+
+    fs.readFile("todos.json", "utf-8", function (err, data) {
+      if (err) {
+        throw err;
+      }
+      todolist = JSON.parse(data);
+      todolist.push(todoDetails);
+      if (todolist.length > 0) {
+        fs.writeFile("todos.json", JSON.stringify(todolist), (err) => {
+          if (err) {
+            throw err;
+          }
+          return res
+            .status(201)
+            .send(todoDetails);
+        });
+      }
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ error: error });
+  }
+});
+
+app.get("/todos/:id", (req, res) => {
+  const id = req.params.id;
+  let todoSpecificObj;
+  let todolist;
+  fs.readFile("todos.json", "utf-8", function (err, data) {
+    if (err) {
+      throw err;
+    }
+    todolist = JSON.parse(data);
+    todoSpecificObj = todolist.find((item) => item.id == id);
+    
+    if (todoSpecificObj) {
+      return res.status(200).send(JSON.stringify(todoSpecificObj) );
+    }
+    return res.status(404).send();
+  });
+});
+
+app.put("/todos/:id", (req, res) => {
+  const body = req.body;
+  const id = req.params.id;
+  let todolist;
+  fs.readFile("todos.json", "utf-8", function (err, data) {
+    if (err) {
+      throw err;
+    }
+    todolist = JSON.parse(data);
+
+    for (let i = 0; i < todolist.length; i++) {
+      if (todolist[i]["id"] == id) {
+        if (body.title) {
+          todolist[i]["title"] = body.title;
+        }
+        if (body.completed) {
+          todolist[i]["completed"] = body.completed;
+        }
+        if (body.description) {
+          todolist[i]["description"] = body.description;
+        }
+        break;
+      }
+    }
+
+    fs.writeFile("todos.json", JSON.stringify(todolist), function (err) {
+      if (err) {
+        throw err;
+      }
+      return res.status(200).json({ success: "successfully updated..." });
+    });
+  });
+});
+
+app.delete("/todos/:id", (req, res) => {
+  const id = req.params.id;
+  let todolist;
+  fs.readFile("todos.json", "utf-8", function (err, data) {
+    if (err) {
+      throw err;
+    }
+    todolist = JSON.parse(data);
+    let updatedTodolist = todolist.filter((item) => item.id != id);
+    fs.writeFile("todos.json", JSON.stringify(updatedTodolist), function (err) {
+      if (err) {
+        throw err;
+      }
+      return res
+        .status(200)
+        .json({ success: "Deleted the item successfully..." });
+    });
+  });
+});
+
+app.all("*", function (req, res) {
+  throw new Error("Bad request");
+});
+
+app.use((e, req, res, next) => {
+  if (e.message === "Bad request") {
+    // console.log("some: ",e)
+    return res.status(404).json({ error: e.message });
+  }
+});
+
+// app.listen(3000, () => {
+//   console.log("server connected");
+// });
+
+module.exports = app;
