@@ -42,4 +42,3 @@ describe('GET /user', function () {
       }, 2000);
   });
 });
-

@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 const jwtPassword = 'secret';
+const {isValidInput} = require('./inputValidation');
 
 
 /**
@@ -13,8 +14,21 @@ const jwtPassword = 'secret';
  *                        Returns null if the username is not a valid email or
  *                        the password does not meet the length requirement.
  */
+
+
+
 function signJwt(username, password) {
     // Your code here
+    const response = isValidInput(username, password);
+    if(!response['success']){
+        return null;
+    }
+
+    const token = jwt.sign({username, password}, jwtPassword, {expiresIn: '1d'});
+    if(token){
+        return token;
+    }
+    return null;
 }
 
 /**
@@ -27,6 +41,19 @@ function signJwt(username, password) {
  */
 function verifyJwt(token) {
     // Your code here
+    let returnedVal;
+    jwt.verify(token, jwtPassword, function (err, decoded){
+        if(err){
+            console.log("erririririri:",  err)
+            returnedVal = false;
+        }
+        console.log('45454545454: ',decoded);
+        if(decoded){
+            
+            returnedVal =  true;
+        }
+    });
+    return returnedVal;
 }
 
 /**
@@ -38,6 +65,12 @@ function verifyJwt(token) {
  */
 function decodeJwt(token) {
     // Your code here
+    const payloadsection = jwt.decode(token);
+    console.log('Payloadsection: ', payloadsection);
+    if(payloadsection){
+        return true;
+    }
+    return false;
 }
 
 
