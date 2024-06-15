@@ -1,0 +1,16 @@
+.para-div{
+    text-align: center;
+}
+.input-box{
+    width: 60%;
+    height: 50px;
+    padding-left: 20px;
+}
+.button{
+    background-color: black;
+    color: white;
+    border-radius: 10px;
+    width: 90px;
+    height: 50px;
+    margin-left: 20px;
+}
