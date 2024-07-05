@@ -4,6 +4,7 @@ import Header from './Components/Header';
 import BackgroundChanger from "./Components/BackgroundChanger";
 import Paragraph from "./Components/Paragraph";
 import Githubcard from "./Components/Githubcard";
+import LoginViaOTP from "./Components/LoginViaOTP";
 
 function App() {
 
@@ -16,6 +17,7 @@ function App() {
         <Route path="/background-changer" element={<BackgroundChanger/>}/>
         <Route path="/paragraph" element={<Paragraph/>}/>
         <Route path="/github-card" element={<Githubcard/>}/>
+        <Route path="/loginviaotp" element={<LoginViaOTP/>} />
       </Routes>
      </BrowserRouter>
       
