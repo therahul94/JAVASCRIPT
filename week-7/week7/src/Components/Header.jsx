@@ -10,6 +10,7 @@ export default function Header(){
           <Link to="/paragraph" style={{margin: "5px"}}>Paragraph</Link>
           <Link to="/github-card" style={{margin: "5px"}}>GitHub-Card</Link>
           <Link to="/loginviaotp" style={{margin: "5px"}}>Login Via OTP</Link>
+          <Link to="/birthdaywisher" style={{margin: "5px"}}>Birthday Wisher</Link>
         </div>
         
       </nav>

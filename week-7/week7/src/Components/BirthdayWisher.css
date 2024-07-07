@@ -1,0 +1,66 @@
+.img-container{
+    background-image: url(http://localhost:5173/celebrate.jpg);
+    width: 100%;
+    height: 100vh;
+    background-size:100% 100%;
+    background-repeat: no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.input-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(255 140 116 / 47%);
+    width: 500px;
+    padding: 20px;
+    box-shadow: 0px 0px 15px 0px;
+    border-radius: 10px;
+}
+
+.birthday-wish-card{
+    width: 25%;
+    height: 50%;
+    border: 0px ;
+    border-radius: 20px;
+    padding: 10px;
+    position: relative;
+}
+
+.wishcard1{
+    background-image: linear-gradient(to right, #0400ff, #00c2ff);
+}
+
+.wishcard2{
+    background-image: linear-gradient(to right, #ff5200, #4f00ff);
+}
+
+.wishcard3{
+    background-image: linear-gradient(to right, #f9ff00, #ff6500);
+}
+
+.wishcard-Footer{
+    border-top: 1px solid black;
+    position: absolute;
+      bottom: 41px;
+      width: 94%;
+      display: flex;
+      align-items: center;
+}
+
+.hashtags{
+    border: 2px solid black;
+    margin-top: 10px;
+    margin-left: 25px;
+    border-radius: 25px;
+    padding: 12px;
+    font-weight: 600;
+    font-size: 20px;
+    font-family:monospace;
+}
+
+h1{
+    font-family: monospace;
+}

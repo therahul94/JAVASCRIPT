@@ -5,6 +5,7 @@ import BackgroundChanger from "./Components/BackgroundChanger";
 import Paragraph from "./Components/Paragraph";
 import Githubcard from "./Components/Githubcard";
 import LoginViaOTP from "./Components/LoginViaOTP";
+import BirthdayWisher from "./Components/BirthdayWisher";
 
 function App() {
 
@@ -18,6 +19,7 @@ function App() {
         <Route path="/paragraph" element={<Paragraph/>}/>
         <Route path="/github-card" element={<Githubcard/>}/>
         <Route path="/loginviaotp" element={<LoginViaOTP/>} />
+        <Route path="/birthdaywisher" element={<BirthdayWisher />} />
       </Routes>
      </BrowserRouter>
       
